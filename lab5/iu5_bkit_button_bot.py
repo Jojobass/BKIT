@@ -8,6 +8,7 @@ TOKEN = '5025597859:AAEWXRIIXFHWLeC7kCZThTzokzZigK2d2Uc'
 # Сообщения
 mes_pairs = 'пары'
 mes_exams = 'экзамены'
+mes_mental_support = 'поддержи меня'
 
 # Путь к текущему каталогу
 cur_path = os.path.dirname(os.path.abspath(__file__))
@@ -31,11 +32,14 @@ def echo_all(message):
 	elif text == mes_exams:
 		img = open(os.path.join(cur_path, 'img\exams.jpeg'), 'rb')
 		bot.send_photo(chat_id, img)
+	elif text == mes_mental_support:
+		bot.send_message(chat_id, f'Ты самый лучший, у тебя все получится, {message.from_user.username}!')
 	else:
-		markup = types.ReplyKeyboardMarkup(row_width=2)
+		markup = types.ReplyKeyboardMarkup(row_width=3)
 		itembtn1 = types.KeyboardButton(mes_pairs)
 		itembtn2 = types.KeyboardButton(mes_exams)
-		markup.add(itembtn1, itembtn2)
+		itembtn3 = types.KeyboardButton(mes_mental_support)
+		markup.add(itembtn1, itembtn2, itembtn3)
 		bot.send_message(chat_id, 'Пожалуйста, нажмите кнопку', reply_markup=markup)
 
 # @bot.message_handler(commands=[mes_pairs])
