@@ -42,6 +42,7 @@ def echo_all(message):
 		markup.add(itembtn1, itembtn2, itembtn3)
 		bot.send_message(chat_id, 'Пожалуйста, нажмите кнопку', reply_markup=markup)
 
+
 # @bot.message_handler(commands=[mes_pairs])
 # def send_pairs(message):
 # 	# Идентификатор диалога
@@ -66,8 +67,6 @@ def echo_all(message):
 # 	itembtn2 = types.KeyboardButton(mes_exams)
 # 	markup.add(itembtn1, itembtn2)
 # 	bot.send_message(chat_id, 'Пожалуйста, нажмите кнопку', reply_markup=markup)
-
-
 
 
 bot.infinity_polling()
