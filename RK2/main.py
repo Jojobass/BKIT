@@ -74,34 +74,32 @@ books_libraries = [
 	BookLibrary(6, 9)
 ]
 
+# Соединение данных один-ко-многим
+one_to_many = [(book.name, book.num_of_pages, lib.name)
+			   for lib in libraries
+			   for book in books
+			   if book.lib_id == lib.id]
 
-def main():
-	"""Основная функция"""
+# Соединение данных многие-ко-многим
+many_to_many_temp = [(lib.name, bl.lib_id, bl.book_id)
+					 for lib in libraries
+					 for bl in books_libraries
+					 if lib.id == bl.lib_id]
 
-	# Соединение данных один-ко-многим
-	one_to_many = [(book.name, book.num_of_pages, lib.name)
-				   for lib in libraries
-				   for book in books
-				   if book.lib_id == lib.id]
+many_to_many = [(book.name, book.num_of_pages, lib_name)
+				for lib_name, lib_id, book_id in many_to_many_temp
+				for book in books if book.id == book_id]
 
-	# Соединение данных многие-ко-многим
-	many_to_many_temp = [(lib.name, bl.lib_id, bl.book_id)
-						 for lib in libraries
-						 for bl in books_libraries
-						 if lib.id == bl.lib_id]
 
-	many_to_many = [(book.name, book.num_of_pages, lib_name)
-					for lib_name, lib_id, book_id in many_to_many_temp
-					for book in books if book.id == book_id]
-
-	print('Задание А1')
+def task1():
 	res1 = []
 	for book_name, book_num, lib_name in one_to_many:
 		if '(детская)' in lib_name:
 			res1.append((lib_name, book_name))
-	print(res1)
+	return res1
 
-	print('\nЗадание А2')
+
+def task2():
 	dict2 = {}
 	for lib in libraries:
 		dict2[lib.name] = [0, 0]
@@ -114,16 +112,16 @@ def main():
 				dict2[lib.name][0] += i[1]
 				# увеличиваем количество книг в библиотеке
 				dict2[lib.name][1] += 1
-	print(dict2)
 	res2 = []
 	# делаем список библиотек и среднего числа страниц в книге в библиотеке
 	for key, value in dict2.items():
 		res2.append((key, round(value[0] / value[1], 2)))
 	# сортируем по числу страниц
 	res2 = sorted(res2, key=lambda av: av[1], reverse=True)
-	print(res2)
+	return res2
 
-	print('\nЗадание А3')
+
+def task3():
 	res3 = {}
 	# создаем список для библиотек для книг с первой "Б"
 	for book in books:
@@ -136,7 +134,17 @@ def main():
 		if i[0][0] == 'Б':
 			# записываем библиотеку в список библиотек, в которых есть эта книга
 			res3[i[0]].append(i[2])
-	print(res3)
+	return res3
+
+
+def main():
+	"""Основная функция"""
+	print('Задание А1')
+	print(task1())
+	print('\nЗадание А2')
+	print(task2())
+	print('\nЗадание А3')
+	print(task3())
 
 
 if __name__ == '__main__':
