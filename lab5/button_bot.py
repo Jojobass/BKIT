@@ -35,11 +35,13 @@ def echo_all(message):
 	elif text == mes_mental_support:
 		bot.send_message(chat_id, f'Ты самый лучший, у тебя все получится, {message.from_user.username}!')
 	else:
+		# hideboard = types.ReplyKeyboardRemove()
 		markup = types.ReplyKeyboardMarkup(row_width=3)
 		itembtn1 = types.KeyboardButton(mes_pairs)
 		itembtn2 = types.KeyboardButton(mes_exams)
 		itembtn3 = types.KeyboardButton(mes_mental_support)
 		markup.add(itembtn1, itembtn2, itembtn3)
+		# bot.send(chat_id, 'sec', reply_markup=hideboard)
 		bot.send_message(chat_id, 'Пожалуйста, нажмите кнопку', reply_markup=markup)
 
 
