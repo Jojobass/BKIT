@@ -7,8 +7,8 @@ class Unique(object):
 		self.used_elements = set()
 		if ignore_case:
 			self.data = []
-			for i, item in enumerate(items):
-				self.data.append(items[i].lower())
+			for item in items:
+				self.data.append(item.lower())
 		else:
 			self.data = items
 		self.index = 0

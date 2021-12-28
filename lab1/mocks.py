@@ -1,3 +1,6 @@
+from unittest.mock import Mock
+import unittest
+
 import sys
 import math
 
@@ -36,6 +39,7 @@ def get_coef(index, prompt):
 def get_discriminant(a, b, c):
 	return b ** 2 - 4 * a * c
 
+
 def get_roots_squared(a, b, d):
 	res = set()
 	if d == 0.0:
@@ -46,6 +50,7 @@ def get_roots_squared(a, b, d):
 		res.add((-b - sqrtD) / (2.0 * a))
 	return res
 
+
 def get_all_roots(arr):
 	res = set()
 	for item in arr:
@@ -55,6 +60,7 @@ def get_all_roots(arr):
 		elif item == 0.0:
 			res.add(0.0)
 	return res
+
 
 def solve(a, b, c):
 	'''
@@ -72,32 +78,41 @@ def solve(a, b, c):
 	return result
 
 
-def main():
-	'''
-	Основная функция
-	'''
-	a = get_coef(1, 'Введите коэффициент А:')
-	b = get_coef(2, 'Введите коэффициент B:')
-	c = get_coef(3, 'Введите коэффициент C:')
-	# Вычисление корней
-	roots = solve(a, b, c)
-	# Вывод корней
-	len_roots = len(roots)
-	if len_roots == 0:
-		print('Нет корней')
-	elif len_roots == 1:
-		print('Один корень: {}'.format(roots[0]))
-	elif len_roots == 2:
-		print('Два корня: {} и {}'.format(roots[0], roots[1]))
-	elif len_roots == 3:
-		print('Три корня: {}, {} и {}'.format(roots[0], roots[1], roots[2]))
-	elif len_roots == 4:
-		print('Четыре корня: {}, {}, {} и {}'.format(roots[0], roots[1], roots[2], roots[3]))
+d = Mock()
+rs = Mock()
+
+class Test_funcs(unittest.TestCase):
+	def test_get_D(self):
+		d.return_value = 9
+		D = d(1, -5, 4)
+		d.assert_called_once()
+		self.assertEqual(D, 9)
+
+	def test_get_roots_sqr_1(self):
+		d.return_value = 9
+		D = d(1, -5, 4)
+		RS = get_roots_squared(1, -5, D)
+		self.assertEqual(RS, {1, 4})
+
+	def test_get_roots_sqr_2(self):
+		d.return_value = 16
+		D = d()
+		RS = get_roots_squared(1, -6, D)
+		self.assertEqual(RS, {1, 5})
+
+	def test_all_roots_1(self):
+		rs.return_value = {1, 4}
+		RS = rs()
+		R = get_all_roots(RS)
+		self.assertEqual(R, {1, -1, 2, -2})
+
+	def test_all_roots_2(self):
+		rs.return_value = {1, 9}
+		RS = rs()
+		R = get_all_roots(RS)
+		self.assertEqual(R, {1, -1, 3, -3})
 
 
-# Если сценарий запущен из командной строки
-if __name__ == "__main__":
-	main()
+if __name__ == '__main__':
+	unittest.main(verbosity=2)
 
-# Пример запуска
-# qr.py 1 0 -4

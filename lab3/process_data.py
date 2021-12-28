@@ -41,7 +41,7 @@ def f3(arg):
 
 
 # f3(f2(f1(data)))
-
+#
 @print_result
 def f4(arg):
 	return [x + f', зарплата {y} руб.' for x, y in zip(arg, [random.randint(100000, 200000) for i in range(len(arg))])]
